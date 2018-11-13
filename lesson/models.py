@@ -9,8 +9,6 @@ class Lesson(models.Model):
  
     def __str__(self):
         return "%s-%s" % (self.subject, self.title)
-
-    def get_absolute_url(self):
         
 
 class Test(models.Model):
