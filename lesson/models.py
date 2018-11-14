@@ -1,6 +1,7 @@
 import os
 from django.db import models
 from django.utils.text import slugify
+from django.urls import reverse
 from sorl.thumbnail import ImageField
 
 # Create your models here.
@@ -31,7 +32,11 @@ class Subject(TimeStampedModel):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name, allow_unicode=True)
         super(Subject, self).save(*args, **kwargs)
-
+    
+    def get_absolute_url(self):
+        # return reverse("subjects", kwargs={'slug': self.slug})
+        return "/subject/%s" % (self.slug)
+        # return "/{}".format(self.pk)
 
 def cover_upload(instance, filename):
     ext = filename.split('.')[-1]
@@ -59,7 +64,8 @@ class Article(TimeStampedModel):
         return "%s" % (self.title)
 
     def get_absolute_url(self):
-        return "/{}/{}".format(Subject.slug, self.pk)
+        return reverse("subjects", kwargs={'slug': self.slug}) 
+        # return "/{}".format(Subject.slug, self.pk)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title, allow_unicode=True)
