@@ -55,13 +55,11 @@
                                 <li class="nav-item active"><a class="nav-link" href="index.html">Нүүр</a></li> 
                                 <li class="nav-item"><a class="nav-link" href="about-us.html">Тухай</a></li> 
                                 <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="butto0n" aria-haspopup="true" aria-expanded="false">Хичээлүүд</a>
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Хичээлүүд</a>
                                     <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" href="/subject/математик">Математик</a>
-                                        <li class="nav-item"><a class="nav-link" href="/subject/англи-хэл">Англи хэл</a></li>
-                                        <li class='nav-item'><a class="nav-link" href="/subject/физик">Физик</a></li>
-                                        <li class='nav-item'><a class="nav-link" href="/subject/хими">Хими</a></li>
-                                        <li class='nav-item'><a class="nav-link" href="/subject/биологи">Биологи</a></li>
+                                        {% for subject in subjects %}
+                                        <li class="nav-item"><a class="nav-link" href="{{ subject.get_absolute_url }}">{{ subject.name }}</a>
+                                        {% endfor %}
                                     </ul>
                                 </li> 
                                 <li class="nav-item submenu dropdown">

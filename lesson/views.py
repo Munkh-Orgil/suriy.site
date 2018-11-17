@@ -1,23 +1,39 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from parler.views import TranslatableSlugMixin
-from lesson.models import Subject, Article, Test
+from lesson.models import Subject, Article
 
-class LatestLessons(ListView):
+
+class LatestArticles(ListView):
     model = Article
-    context_object_name = 'lessons'
+    context_object_name = 'articles'
 
-    def get_context_date(*args, **kwargs):
-        context = super(LatestLessons, self).get_context_date(**kwargs)
-        context['latest'] = Article.objects.all[:5]
-        context['math'] = Subject.objects.filter(subject=1)
-        context['english'] = Subject.objects.filter(subject=2)
-        context['physics'] = Subject.objects.filter(subject=3)        
-        context['chemistry'] = Subject.objects.filter(subject=4)
-        context['biology'] = Subject.objects.filter(subject=5)
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['latest'] = Article.objects.all()[:5]
+        context['subjects'] = Subject.objects.all()
+        print(context)
         return context
 
-class LessonView(ListView):
+
+class SubjectView(ListView):
+    model = Subject
+    context_object_name = "subjects"
+
+
+class SubjectDetailView(DetailView):
+    model = Subject
+    context_object_name = "subject"
+
+    def get_context_data(self, **kwargs):
+        context = super(SubjectDetailView, self).get_context_data(**kwargs)
+        obj = Subject.objects.get(slug=self.kwargs['slug'])
+        context['articles'] = Article.objects.filter(
+             subject=obj.pk)
+        print(context)
+        return context
+
+
+class ArticleView(ListView):
     model = Article
     template_name = 'lesson.html'
 
@@ -27,94 +43,9 @@ class LessonView(ListView):
         return context
 
 
-class LessonDetailView(DetailView):
+class ArticleDetailView(DetailView):
     model = Article
+    context_object_name = "article"
 
-
-class SubjectView(ListView):
-    model = Subject
-    context_object_name = "subjects"
-
-    def get_context_data(self, **kwargs):
-        context = super(SubjectView, self).get_context_data(**kwargs)
-        # context['math'] = Subject.objects.filter(subject=1)
-        # context['english'] = Subject.objects.filter(subject=2)
-        # context['physics'] = Subject.objects.filter(subject=3)        
-        # context['chemistry'] = Subject.objects.filter(subject=4)
-        # context['biology'] = Subject.objects.filter(subject=5)
-        print(context)
-        return context
-
-
-class SubjectDetailView(TranslatableSlugMixin, DetailView):
-    model = Article
-    context_object_name = "articles"
-
-    def get_context_data(self, **kwargs):
-        context = super(SubjectDetailView, self).get_context_data(**kwargs)
-        # context['detail'] = Subject.objects.all()
-        # context['article'] = Article.objects.filter(subject=1)
-        print(context)
-        return context
-
-class TestView(ListView):
-    model = Test
-
-
-class TestDetailView(DetailView):
-    model = Test
-
-class MathView(ListView):
-    model = Article
-    template_name = 'learnit/math.html'
-    context_object_name = 'maths'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['math'] = Article.objects.filter(subject=1)
-        context['object'] = Article.objects.all()
-        return context
-
-class EnglishView(ListView):
-    model = Article
-    template_name = 'learnit/english.html'
-    context_object_name = 'english'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['english'] = Article.objects.filter(subject=2)
-        context['object'] = Article.objects.all()
-        return context
-
-class PhysicsView(ListView):
-    model = Article
-    template_name = 'learnit/physics.html'
-    context_object_name = 'physics'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['physics'] = Article.objects.filter(subject=3)
-        context['object'] = Article.objects.all()
-        return context
-
-class ChemistryView(ListView):
-    model = Article
-    template_name = 'learnit/chemistry.html'
-    context_object_name = 'chemistry'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['chemistry'] = Article.objects.filter(subject=4)
-        context['object'] = Article.objects.all()
-        return context
-
-class BiologyView(ListView):
-    model = Article
-    template_name = 'learnit/biology.html'
-    context_object_name = 'biology'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['biology'] = Article.objects.filter(subject=5)
-        context['object'] = Article.objects.all()
-        return context                
+    def get_queryset(self):
+        return Article.objects.filter(slug=self.kwargs['slug'])

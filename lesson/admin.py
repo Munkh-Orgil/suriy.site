@@ -9,6 +9,7 @@ class SubjectAdmin(admin.ModelAdmin):
     search_fields = ['name', 'slug', 'description']
     list_filter = ['name', 'active']
 
+
 @admin.register(Article)
 class ArticleAdmin(AdminImageMixin, admin.ModelAdmin):
     """Article model admin"""
@@ -16,7 +17,7 @@ class ArticleAdmin(AdminImageMixin, admin.ModelAdmin):
     search_fields = ['title', 'slug', 'subject', 'class_number']
     list_filter = ['title', 'subject', 'class_number', 'active']
 
-    
+
 @admin.register(Test)
 class TestAdmin(admin.ModelAdmin):
     """Test model admin"""

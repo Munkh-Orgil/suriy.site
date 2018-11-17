@@ -18,7 +18,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include, path
 
+from lesson.views import *
+
 urlpatterns = [
-    path('', include('lesson.urls')),
     path('admin/', admin.site.urls),
+    path('', LatestArticles.as_view(template_name='learnit/index.html'),
+         name='latest_lessons'),
+    path('subject/', SubjectView.as_view(template_name='learnit/subject.html'),
+         name='subjects'),
+    path('subject/', include('lesson.urls', namespace='lesson')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

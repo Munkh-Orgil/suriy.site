@@ -34,8 +34,8 @@ class Subject(TimeStampedModel):
         super(Subject, self).save(*args, **kwargs)
     
     def get_absolute_url(self):
-        # return reverse("subjects", kwargs={'slug': self.slug})
-        return "/subject/%s" % (self.slug)
+        return reverse("lesson:subjectDetail", kwargs={'slug': self.slug})
+        # return "/subject/%s" % (self.slug)
         # return "/{}".format(self.pk)
 
 def cover_upload(instance, filename):
@@ -49,10 +49,10 @@ def cover_upload(instance, filename):
 class Article(TimeStampedModel):
     title = models.CharField(u'Гарчиг', max_length=50)
     slug = models.SlugField(u"Хаяг", null=True, unique=True,
-                            blank=True, allow_unicode=True),
+                            blank=True, allow_unicode=True)
     class_number = models.IntegerField(verbose_name='Анги', null=True)
-    body = models.TextField(u'Хичээлийн текст', blank=True)
-    cover = ImageField(u"Зураг", upload_to=cover_upload)
+    body = models.TextField(u'Хичээлийн текст', blank=True, null=True)
+    cover = ImageField(u"Зураг", upload_to=cover_upload, null=True)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, related_name='Subject')
  
     class Meta:
@@ -64,8 +64,7 @@ class Article(TimeStampedModel):
         return "%s" % (self.title)
 
     def get_absolute_url(self):
-        return reverse("subjects", kwargs={'slug': self.slug}) 
-        # return "/{}".format(Subject.slug, self.pk)
+        return reverse("lesson:articleDetails", kwargs={'slug': self.slug}) 
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title, allow_unicode=True)
