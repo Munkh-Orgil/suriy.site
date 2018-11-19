@@ -27,4 +27,6 @@ urlpatterns = [
     path('subject/', SubjectView.as_view(template_name='learnit/subject.html'),
          name='subjects'),
     path('subject/', include('lesson.urls', namespace='lesson')),
+    path('about', AboutView.as_view(), name='about-view'),
+    path('contact', ContactView.as_view(), name='contact-view')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

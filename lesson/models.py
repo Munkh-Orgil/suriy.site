@@ -73,12 +73,8 @@ class Article(TimeStampedModel):
 
 class Test(TimeStampedModel):
     title = models.CharField(u'Гарчиг', max_length=50, blank=True, null=True)
-    question = models.CharField(u'Асуулт', max_length=100, blank=True, null=True)
-    answer_1 = models.CharField(u'Хариулт-1', max_length=100, blank=True, null=True)
-    answer_2 = models.CharField(u'Хариулт-2', max_length=100, blank=True, null=True)
-    answer_3 = models.CharField(u'Хариулт-3', max_length=100, blank=True, null=True)
-    right_answer = models.CharField(u'Зөв хариулт', max_length=100, blank=True, null=True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='Article')
+    slug = models.SlugField(u"Хаяг", null=True, unique=True, blank=True, allow_unicode=True)
 
     class Meta:
         verbose_name = u"Сорил"
@@ -86,3 +82,23 @@ class Test(TimeStampedModel):
 
     def __str__(self):
         return "Тест - %s" % (self.title)
+
+    def get_absolute_url(self):
+        return reverse("test:test-view", kwargs={'slug': self.slug}) 
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title, allow_unicode=True)
+        super(Test, self).save(*args, **kwargs)
+
+class Question(TimeStampedModel):
+    question = models.CharField(u'Асуулт', max_length=100, blank=True, null=True)
+    answer_1 = models.CharField(u'Хариулт-1', max_length=100, blank=True, null=True)
+    answer_2 = models.CharField(u'Хариулт-2', max_length=100, blank=True, null=True)
+    answer_3 = models.CharField(u'Хариулт-3', max_length=100, blank=True, null=True)
+    right_answer = models.CharField(u'Зөв хариулт', max_length=100, blank=True, null=True)
+    test = models.ForeignKey(Test, on_delete=models.CASCADE, related_name='Test')
+
+    class Meta:
+        verbose_name = u"Асуулт"
+        verbose_name_plural = u"Асуултууд"
+

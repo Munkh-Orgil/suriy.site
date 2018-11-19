@@ -99,15 +99,15 @@
         		<div class="row courses_inner">
         			<div class="col-lg-9">
 						<div class="grid_inner">
-							{% for lesson in lessons %}
+							{% for article in articles %}
 							<div class="grid_item wd55">
 								<div class="courses_item">
 									<img src="{% static 'content/img/courses/course-1.jpg' %}" alt="">
 									<div class="hover_text">
-										<a href="#"><h4>{{ lesson.title }}</h4></a>
+										<a href="{{ article.get_absolute_url }}"><h4>{{ article.title }}</h4></a>
 										<ul class="list">
-											<li><a href="#">{{ lesson.subject }}</a></li>
-											<li><a href="#"><i class="lnr lnr-user"></i>{{ lesson.class_number }}</a></li>
+											<li><a href="#">{{ article.subject }}</a></li>
+											<li><a href="#"><i class="lnr lnr-user"></i>{{ article.class_number }}</a></li>
 										</ul>
 									</div>
 								</div>

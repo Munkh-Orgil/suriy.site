@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from lesson.models import Subject, Article
+from django.views.generic.base import TemplateView
+from lesson.models import Subject, Article, Test, Question
 
 
 class LatestArticles(ListView):
@@ -11,7 +12,6 @@ class LatestArticles(ListView):
         context = super().get_context_data(**kwargs)
         # context['latest'] = Article.objects.all()[:5]
         context['subjects'] = Subject.objects.all()
-        print(context)
         return context
 
 
@@ -27,8 +27,7 @@ class SubjectDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(SubjectDetailView, self).get_context_data(**kwargs)
         obj = Subject.objects.get(slug=self.kwargs['slug'])
-        context['articles'] = Article.objects.filter(
-             subject=obj.pk)
+        context['articles'] = Article.objects.filter(subject=obj.pk)
         print(context)
         return context
 
@@ -49,3 +48,32 @@ class ArticleDetailView(DetailView):
 
     def get_queryset(self):
         return Article.objects.filter(slug=self.kwargs['slug'])
+
+
+class TestView(DetailView):
+    model = Test
+  
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tests'] = Test.objects.filter(article=pk)
+        return context
+    
+    def get_queryset(self):
+        return Test.objects.filter(slug=self.kwargs['slug'])
+
+
+class QuestionView(ListView):
+    model = Question
+    context_object_name = 'test'    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tests'] = Question.objects.filter(test=pk)
+        return context
+
+
+class AboutView(TemplateView):
+    template_name = "learnit/about-us.html"
+
+class ContactView(TemplateView):
+    template_name = "learnit/contact.html"

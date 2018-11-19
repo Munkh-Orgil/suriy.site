@@ -1,6 +1,6 @@
 from django.contrib import admin
 from sorl.thumbnail.admin import AdminImageMixin
-from lesson.models import Subject, Article, Test
+from lesson.models import Subject, Article, Test, Question
 
 @admin.register(Subject)
 class SubjectAdmin(admin.ModelAdmin):
@@ -21,8 +21,13 @@ class ArticleAdmin(AdminImageMixin, admin.ModelAdmin):
 @admin.register(Test)
 class TestAdmin(admin.ModelAdmin):
     """Test model admin"""
-    list_display = ['title', 'article', 'question', 'right_answer', 'answer_1', 'answer_2', 'answer_3', 'active']
-    search_fields = ['title', 'article', 'question', 'right_answer', 'answer_1', 'answer_2', 'answer_3']
-    list_filter = ['title', 'article', 'question', 'right_answer', 'answer_1', 'answer_2', 'answer_3', 'active']
+    list_display = ['title', 'article', 'slug', 'active']
+    search_fields = ['title', 'article']
+    list_filter = ['title', 'article', 'active']
 
-    
+@admin.register(Question)
+class QuestionAdmin(admin.ModelAdmin):
+    """Question model admin"""
+    list_display = ['question', 'right_answer', 'answer_1', 'answer_2', 'answer_3', 'active']
+    search_fields = ['question', 'right_answer', 'answer_1', 'answer_2', 'answer_3']
+    list_filter = ['question', 'right_answer', 'answer_1', 'answer_2', 'answer_3', 'active']

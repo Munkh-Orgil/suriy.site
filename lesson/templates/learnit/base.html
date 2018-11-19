@@ -52,8 +52,8 @@
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                             <ul class="nav navbar-nav menu_nav ml-auto">
-                                <li class="nav-item active"><a class="nav-link" href="index.html">Нүүр</a></li> 
-                                <li class="nav-item"><a class="nav-link" href="about-us.html">Тухай</a></li> 
+                                <li class="nav-item active"><a class="nav-link" href="{% url 'latest_lessons' %}">Нүүр</a></li> 
+                                <li class="nav-item"><a class="nav-link" href="{% url 'about-view' %}">Тухай</a></li> 
                                 <li class="nav-item submenu dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Хичээлүүд</a>
                                     <ul class="dropdown-menu">
@@ -61,17 +61,7 @@
                                         <li class="nav-item"><a class="nav-link" href="{{ subject.get_absolute_url }}">{{ subject.name }}</a>
                                         {% endfor %}
                                     </ul>
-                                </li> 
-                                <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pages</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item"><a class="nav-link" href="elements.html">Elements</a></li>
-                                    </ul>
-                                </li> 
-                                <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Блог</a
-                                </li> 
-                                <li class="nav-item"><a class="nav-link" href="contact.html">Холбогдох</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{% url 'contact-view' %}">Холбогдох</a></li>
                             </ul>
                         </div> 
                     </div>
