@@ -84,10 +84,10 @@ class Test(TimeStampedModel):
         return "Тест - %s" % (self.title)
 
     def get_absolute_url(self):
-        return reverse("test:test-view", kwargs={'slug': self.slug}) 
+        return reverse("lesson:test-view", kwargs={'slug': self.slug}) 
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title, allow_unicode=True)
+        self.slug = slugify(self.article, allow_unicode=True)
         super(Test, self).save(*args, **kwargs)
 
 class Question(TimeStampedModel):

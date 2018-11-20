@@ -1,7 +1,41 @@
 {% extends "learnit/base.html" %}
 {% block content %}
 {% load static %}
-
-
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2></h2>
+                <div class="page_link">
+                    <a href="">СУРЪЯ</a>
+                    <a href="">{{ tests.title }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="courses_area p_120">
+<div class='container'>
+    <div class='main_title'>
+        <h1>{{ tests.title }}</h1>
+        <h3>{{ tests.article }}</h3>
+    </div>
+</section>
+</div>
+<div class='container'>
+    <div class="courses_area p_120">
+    {% for question in questions %}
+    <div class="text-center col-md-12">
+        <h3>{{ question.question }}</h3>
+        <a href="" class="genric-btn success radius">{{ question.answer_1 }}</a>
+        <a href="" class="genric-btn success radius">{{ question.answer_2 }}</a>
+        <a href="" class="genric-btn success radius">{{ question.answer_3 }}</a>
+        <a href="" class="genric-btn success radius">{{ question.right_answer }}</a>
+        
+    </div>
+    {% endfor %}
+</div>
+</div>
 
 {% endblock %}

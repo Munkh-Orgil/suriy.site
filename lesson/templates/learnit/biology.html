@@ -22,11 +22,14 @@
             <h2>{{ article.title }}</h2>
             <p>Өөрт буй боломжоо яг одоо ашигла.</p>
         </div>
-        {% thumbnail article.cover "1200x450" crop="center" as im %}<img src="{{ im.url }}" alt="{{ im.url }}" />
+        {% thumbnail article.cover "900x500 " crop="center" as im %}<img src="{{ im.url }}" alt="{{ im.url }}" />
         {% endthumbnail %}
         <div class="section-top-border">
         <p>{{ article.body }}</p>
         </div>
+    </div>
+    <div class="col-md-12 text-center"> 
+    <a href="{{ test.get_absolute_url }}" class="genric-btn success radius">ШАЛГАЯ</a>
     </div>
 </section>
 {% endblock %}

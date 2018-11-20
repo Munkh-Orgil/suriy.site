@@ -76,10 +76,12 @@ button:focus {
 
 .p_120 {
   padding-top: 120px;
-  padding-bottom: 120px; }
+  padding-bottom: 120px;
+} 
 
 .pad_top {
-  padding-top: 120px; }
+  padding-top: 120px; 
+}
 
 .mt-25 {
   margin-top: 25px; }
@@ -335,8 +337,8 @@ button:focus {
   .blog_banner .banner_inner {
     background: #04091e;
     position: relative;
-    overflow: hidden;
     width: 100%;
+    overflow: hidden;
     min-height: 660px;
     z-index: 1; }
     .blog_banner .banner_inner .overlay {
@@ -2663,7 +2665,7 @@ h6 {
       color: #4dbf1c; }
 
 .wd55 {
-  width: 33%;
+  /* width: 33%; */
   float: left;
   margin-bottom: 30px; }
 
@@ -2917,7 +2919,7 @@ h6 {
     padding-bottom: 10px; }
 
 .video_area {
-  float: right;
+  /* float: right; */
   display: inline-block;
   position: relative; }
   .video_area .popup-youtube {
